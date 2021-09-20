@@ -27,11 +27,13 @@ float speed=100.0f;
 Vector2 X_velocity={speed*Deltatime,0.0f};
 Vector2 Y_velocity={0.0f,speed*Deltatime};
 Vector2 midscreen = {screenWidth/2,screenHeight/2};
-
+int Current_note=0;
+int previouse_note=0;
+int framecounter;
 struct W_Note{
 Vector2 pos ={50.0f,screenHeight/2};
 float radius =50.0f;
-bool W_trigger=false;
+bool W_trigger=0;
 
 };
         struct W_Note Wnote;
@@ -55,15 +57,38 @@ bool W_collision =false;
 
 
     while (!WindowShouldClose())   
-    {   
-    Wnote.pos = Vector2Add(Wnote.pos,X_velocity);
+    {   framecounter++;
+    if(W_note[Current_note].W_trigger==1)
+    W_note[Current_note].pos = Vector2Add(W_note[Current_note].pos,X_velocity);
 
 
-    //West collision
-if(CheckCollisionCircles(Wnote.pos,Wnote.radius,midscreen,60.0f)){W_collision=true;}
-else{W_collision=false;}
-    if(W_collision==true){Wnote.radius*=0;}
-    //West collision
+if(IsKeyPressed(KEY_SPACE)){(W_note[Current_note].W_trigger++);}
+
+
+//West collision-----------------------------------------------------------------------------------
+if(CheckCollisionCircles(W_note[Current_note].pos,W_note[Current_note].radius,midscreen,60.0f)){W_collision=true;}
+else{W_collision=false;
+DrawText("trigger is false", 10, 10, 20, DARKGRAY);}
+    if(W_collision==true){       
+
+  
+        W_note[Current_note].radius=0;}
+//West collision end-------------------------------------------------------------------------------------
+
+
+//condition checks-------------------------------------------------------------------------
+           if(W_note[Current_note].W_trigger==1)
+    {
+          spawnWnote(W_note[Current_note].pos, W_note[Current_note].radius,W_note[Current_note].W_trigger);
+          
+          }
+   
+      if(Current_note>previouse_note)
+    {
+        W_note[previouse_note].W_trigger=true;
+          spawnWnote(W_note[previouse_note].pos, W_note[previouse_note].radius,W_note[previouse_note].W_trigger);
+   }
+//condition checks end-----------------------------------------------------------------------
 
 
         //----------------------------------------------------------------------------------
@@ -71,19 +96,12 @@ else{W_collision=false;}
         //----------------------------------------------------------------------------------
 
 
-
-           if(IsKeyPressed(KEY_SPACE)|| Wnote.W_trigger==true)
-    {
-        Wnote.W_trigger=true;
-          spawnWnote(Wnote.pos, Wnote.radius,Wnote.W_trigger);
-  
-   }
         BeginDrawing();
 
             ClearBackground(BLACK);
 
-            
             DrawCircleV(midscreen,60.0f,BLUE);
+            
          
         EndDrawing();
     }
