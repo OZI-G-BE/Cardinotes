@@ -11,7 +11,7 @@ float speed=100.0f;
 Vector2 X_velocity={speed*Deltatime,0.0f};
 Vector2 Y_velocity={0.0f,speed*Deltatime};
 Vector2 midscreen = {screenWidth/2,screenHeight/2};
-int framecounter;
+float framecounter;
 
 //////////////WEST START////////////////////
 struct W_Note{
