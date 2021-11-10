@@ -2,16 +2,24 @@
 #include <iostream>
 #include "raylib.h"
 #include "Vars.h"
+#include <string>
+#include <cstdlib>
+#include <fstream>
 
-void StartSong(float cdnSong[]/*cdnsong arrays for remaining 3 points*/, float N_final)
+using namespace std;
+
+void StartSong(float N_final)
 {
+   ifstream fin("../Songs/song.cdn");
+
+    string line;
         float N_checker=0.0f;
    while(N_checker!=N_final){
-        if(N_checker/*belongs to cdnSong_W array*/)
+        if(N_checker)
         {
             //spwan a note at west cardinal point
         }
-        // reapeat for remaining 3 points
+        // reapeat for remaining 3 points   
         N_checker+=0.01f;
         }
    
