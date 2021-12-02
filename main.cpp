@@ -4,6 +4,7 @@
 #include "collisions.h"
 #include "conditions.h"
 #include "events.h"
+#include "cdnReader.h"
 
 int main(void)
 {
@@ -13,54 +14,39 @@ InitWindow(screenWidth, screenHeight, "raylib [core] example - keyboard input");
 SetTargetFPS(fps);   
 // Main game loop--------------------------
     while (!WindowShouldClose())   
-    {   framecounter++;
-
-//condition checks start-------------------------------
+    {   
+framecounter++;
+StartSong(framecounter);
 ConditionCheck();
-//condition checks end-----------------------------------------------------------------------
-
-
 //////////////INPUTS END////////////////////
 if(IsKeyPressed(KEY_W)){  
-      N_note_trigger(); 
+N_note_trigger(); 
 }
-
 if(IsKeyPressed(KEY_S)){  
-       S_note_trigger();
+S_note_trigger();
 }
-
 if(IsKeyPressed(KEY_A)){  
-       W_note_trigger();
+W_note_trigger();
 }
-
 if(IsKeyPressed(KEY_D)){  
-      E_note_trigger(); 
+E_note_trigger(); 
 }
-
 //////////////INPUTS END////////////////////
-
-
-//collision check start-----------------------------------------------------------------------------------
  CheckCollisions();
-//collision check end-------------------------------------------------------------------------------------
+        
+BeginDrawing();
 
-//----------------------------------------------------------------------------------
-// Draw
-//----------------------------------------------------------------------------------
-        BeginDrawing();
+ClearBackground(BLACK);
 
-            ClearBackground(BLACK);
-
-            DrawCircleV(midscreen,60.0f,BLUE);
+DrawCircleV(midscreen,60.0f,BLUE);
             
          
-        EndDrawing();
-    }
+EndDrawing();
+}
     // De-Initialization
     //--------------------------------------------------------------------------------------
     CloseWindow();       
     //--------------------------------------------------------------------------------------
 
 
-    return 0;
-}
+    return 0;}

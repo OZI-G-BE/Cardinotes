@@ -2,6 +2,7 @@
 #include <iostream>
 #include "raylib.h"
 
+
 #define fps 60
 #define Deltatime 1/fps
 #define screenWidth  800
@@ -21,6 +22,7 @@ bool W_trigger=0;
 float border =5.0f;
 };
 struct W_Note W_note[100000];
+
 bool W_collision =false;
 int Current_W_note=0;
 int Previous_W_note=0;
