@@ -1,5 +1,6 @@
 #pragma once
 #include "events.h"
+#include "fileHandler.h"
 #include <iostream>
 #include "raylib.h"
 #include "Vars.h"
@@ -7,20 +8,24 @@
 #include <cstdlib>
 #include <fstream>
 #include <vector>
-
 using namespace std;
-
-  
-  vector<float> itv;
+vector<float> itv;
   vector<string> card;
-
+  
+ 
 
 string Tcard;
 float Titv;
 
+
 void StartSong(float framecounter){
+
+  
+
 int j=0;
-  ifstream Song("../Songs/song.cdn");
+
+  ifstream Song;
+  Song.open(dirs[1]);
   while(Song >> Titv >> Tcard)
 {
 
@@ -54,5 +59,13 @@ j++;
 }
 Song.close();
 
+if(!Song.is_open())
+{
+itv.clear();
+card.clear();
+Song.close();
+
+
+}
 
 }

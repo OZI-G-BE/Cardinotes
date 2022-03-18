@@ -10,13 +10,25 @@ int main(void)
 {
 // Initialization--------------------------
 InitWindow(screenWidth, screenHeight, "raylib [core] example - keyboard input");
-
+InitAudioDevice();
+getdirSF();
+getdir();
+Music music =LoadMusicStream(dirs[0].c_str());
+ //Music music =LoadMusicStream("../Songs/example/sewerperson - heatdeath.mp3");
+PlayMusicStream(music);
 SetTargetFPS(fps);   
 // Main game loop--------------------------
+float TimePlayed;
     while (!WindowShouldClose())   
-    {   
+    {   UpdateMusicStream(music);
+
+StartSong(TimePlayed);
+      DrawText(std::to_string(TimePlayed).c_str(), 50, 50, 20, DARKGRAY);
+
+    TimePlayed=GetMusicTimePlayed(music);
 framecounter++;
-StartSong(framecounter);
+
+
 ConditionCheck();
 //////////////INPUTS END////////////////////
 if(IsKeyPressed(KEY_W)){  
@@ -43,7 +55,8 @@ DrawCircleV(midscreen,60.0f,BLUE);
          
 EndDrawing();
 }
-    // De-Initialization
+UnloadMusicStream(music);
+CloseAudioDevice();    // De-Initialization
     //--------------------------------------------------------------------------------------
     CloseWindow();       
     //--------------------------------------------------------------------------------------
