@@ -1,10 +1,16 @@
 #include "raylib.h"
 #include "raymath.h"
-#include "Vars.h"
-#include "collisions.h"
-#include "conditions.h"
-#include "events.h"
-#include "cdnReader.h"
+#include "include/Vars.h"
+#include "include/collisions.h"
+#include "include/conditions.h"
+#include "include/events.h"
+#include "include/cdnReader.h"
+#include <iostream>
+#include <chrono>
+#include <thread>
+#include <future>
+
+using namespace std;
 
 int main(void)
 {
@@ -12,20 +18,22 @@ int main(void)
 InitWindow(screenWidth, screenHeight, "raylib [core] example - keyboard input");
 InitAudioDevice();
 getdirSF();
-getdir();
-Music music =LoadMusicStream(dirs[0].c_str());
+loadSong();
+
+//std::async(std::launch::async,loadSong);
+
  //Music music =LoadMusicStream("../Songs/example/sewerperson - heatdeath.mp3");
-PlayMusicStream(music);
 SetTargetFPS(fps);   
 // Main game loop--------------------------
-float TimePlayed;
+
     while (!WindowShouldClose())   
-    {   UpdateMusicStream(music);
+    { 
+          UpdateMusicStream(music);
 
-StartSong(TimePlayed);
-      DrawText(std::to_string(TimePlayed).c_str(), 50, 50, 20, DARKGRAY);
 
-    TimePlayed=GetMusicTimePlayed(music);
+startSong(GetMusicTimePlayed(music));
+
+      DrawText(std::to_string(GetMusicTimePlayed(music)).c_str(), 50, 50, 20, DARKGRAY);
 framecounter++;
 
 
@@ -33,15 +41,23 @@ ConditionCheck();
 //////////////INPUTS END////////////////////
 if(IsKeyPressed(KEY_W)){  
 N_note_trigger(); 
+
+
 }
 if(IsKeyPressed(KEY_S)){  
 S_note_trigger();
+
+
 }
 if(IsKeyPressed(KEY_A)){  
 W_note_trigger();
+
+
 }
 if(IsKeyPressed(KEY_D)){  
 E_note_trigger(); 
+
+
 }
 //////////////INPUTS END////////////////////
  CheckCollisions();

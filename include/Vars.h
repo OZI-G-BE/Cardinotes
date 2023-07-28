@@ -17,6 +17,8 @@ Vector2 Y_velocity={0.0f,speed*Deltatime};
 Vector2 midscreen = {screenWidth/2,screenHeight/2};
 float framecounter;
 
+int songSelected=0;
+
 //////////////WEST START////////////////////
 struct W_Note{
 Vector2 pos ={-0.5f,screenHeight/2};
